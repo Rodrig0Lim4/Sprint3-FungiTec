@@ -1,0 +1,316 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #1E1C21;
+    font-family: 'Barlow';
+    color: #ffffff;
+}
+
+.banner_img {
+    background-image: url(../assets/cogumelo1.jpg);
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.title{
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.title img{
+    height: 8vh;
+    margin-right: 1vw;
+}
+
+.navebar li {
+    display: inline-block;
+}
+
+.navebar a{
+    color:white;
+    text-decoration: none;
+}
+
+.navebar a:hover{
+    color: rgb(8, 206, 1);
+    transition: 0.3s all;
+}
+
+.login{
+    border: 2px solid rgb(8, 206, 1);
+    border-radius: 10vh;
+    width: 5.1vw;
+    height: 4.9vh;
+    padding: 2.4vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login a{
+    margin-top: 10px;
+}
+
+.login:hover{
+    background-color: rgba(0, 0, 0, 0.555);
+    color: white;
+}
+
+.navebar{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    height: 9vh;
+}
+
+.navebar ul{
+    width: 17vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container_banner_texto{
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container_banner_texto h3{
+    text-align: center;
+    margin-bottom: 3vh;
+}
+
+.banner_h2{
+    margin: 8vh 0;
+    font-weight: 450;
+    font-size: 2em;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+* {
+    font-family: 'Barlow';
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #ffffff;
+    margin: 0 auto;
+    padding: 0px;
+}
+
+.home {
+    background-image: url(../assets/cogumelo1.jpg);
+    position: static;
+    width: 100%;
+}
+
+header {
+    width: 100%;
+    height: 100px;
+    padding: 50px;
+    background-color: transparent;
+}
+
+
+
+
+.logo{
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.logo img{
+    height: 8vh;
+    margin-right: 1vw;
+}
+
+.menu ul {
+    list-style: none;
+    margin-top: .5rem;
+    display: flex;
+    font-size: 20px;
+}
+
+.menu ul li {
+    margin: 0 1.2rem;
+}
+
+.menu ul li a {
+    color: rgb(255, 255, 255);
+    font-size: 15px;
+    text-decoration: none;
+}
+
+.menu ul li a:hover {
+    color: rgb(8, 206, 1);
+    transition: 0.50;
+}
+
+.menu button {
+    background-color: green;
+    color: white;
+    margin-top: -5px;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 15px;
+    border: solid 2px rgb(8, 206, 1);
+}
+
+.menu button:hover {
+    background-color: rgb(14, 71, 0);
+}
+
+.menu button a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+
+}
+
+
+.banner {
+    background-image: url('./assets/img/bg-jelly-fish-para_outras_pags.png');
+    padding: 100px 0;
+    background-size: cover;
+    width: 100%;
+}
+
+.banner .container {
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.form {
+    background-color: rgba(0, 0, 0, 0.25);
+    padding: 50px 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 68vh;
+    flex-direction: column;
+    border-radius: 50px;
+    margin-left: 52vh;
+}
+
+.form h2 {
+    color: green;
+    font-size: 23px;
+    margin-top: -5px;
+    margin-bottom: 10px;
+}
+
+.form label {
+    color: green;
+}
+
+.form input {
+    display: flex;
+    padding: 10px 8px;
+    margin: 20px 0;
+    flex-direction: column;
+    border-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid green;
+    outline: none;
+}
+
+.form p {
+    color: #fff;
+    font-size: 20px;
+    margin-bottom: -10px;
+}
+
+.form .container button:hover {
+    color: white;
+    background-color: rgb(14, 71, 0);
+}
+
+.button_enviar{
+    background-color: rgb(6, 151, 1);
+    color: white;
+    font-size: 1.3em;
+    border-radius: 15px;
+    transition: 0.3s all;
+    border: 0;
+    width: 12.5vw;
+    margin-top: 3vh;
+}
+
+.button_enviar:hover{
+    cursor: pointer;
+    background-color: rgb(14, 71, 0);
+    color: white;
+}
+
+.container_nao_tem_conta{
+    display: flex;
+    flex-direction: column;
+}
+
+.container_nao_tem_conta .nao_tem_conta{
+    display: flex;
+    margin-left: 1vh;
+}
+
+.container_nao_tem_conta .cadastre_se{
+ display: flex;
+ margin-left: 1vh;
+ margin-top: 2vh;
+}
+.container_nao_tem_conta{
+    margin-top: 2vh;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    
+}
+
+.container_nao_tem_conta p{
+    font-size: 1em;
+}
+
+.container_nao_tem_conta a{
+    color:  rgb(6, 151, 1);
+    font-size: 1em;
+}
+
+footer {
+    background-color: #1E1C21;
+    height: 7vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f2f2f2;
+}
+
+footer .container {
+    justify-content: center;
+
+}
+
+footer .container p {
+    color: rgb(255, 255, 255);
+    margin-top: 60px;
+    font-weight: bold;
+    font-size: 18px;
+}

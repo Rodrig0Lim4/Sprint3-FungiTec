@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FungiTec</title>
+    <link rel="stylesheet" href="./css/login.css">
+    <script src="./js/login.js"></script>
+    <link rel="icon" href="./assets/favicon_io/favicon.ico">
+</head>
+
+<body>
+    <div class="home">
+        
+            <div class="container">
+                <div class="navebar">
+                    <div class="title">
+                        <img src="./assets/IMG-20221004-WA0432-removebg-preview.png" alt="">
+                        <h1>FungiTec</h1>
+                    </div>
+                    <ul>
+                            <li><a href="./index.html">Home</a></li>
+                            <li><a href="./simulador.html">Simulador</a></li>
+                            <li><a class="login" href="./login.html">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        <main>
+            <section class="banner">
+                <div class="container">
+                    <div class="form">
+                        <h2>Bem-Vindo de volta!</h2>
+                        <br>
+                        <div class="input-campo">
+                            <p>Email:</p>
+                            <label for="email"></label>
+                            <input class="input_login" type="email" id="input_email" placeholder="email@provedor" id="mail">
+                            <p>Senha:</p>
+                            <label for="Senha"></label>
+                            <input class="input_login" type="password" id="input_senha" placeholder="******" minlength="3" maxlength="16">
+                            <div class="button_login">
+                                <button class="button_enviar" type="submit" onclick="validar_campo_login()">Enviar</button>
+                            </div>
+                            <div class="container_nao_tem_conta">
+                                <p class="nao_tem_conta">Não tem conta?</p>
+                                <span class="cadastre_se"><a href="./cadastro.html">Cadastre-se</a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <footer>
+        <h4>Desenvolvido por alunos SPTech - &copy; Copyright 2022</h4>
+    </footer>
+</body>
+
+</html>

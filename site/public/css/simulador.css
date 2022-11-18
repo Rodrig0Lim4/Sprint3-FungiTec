@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400&display=swap');
+
+* {
+    font-family: 'Barlow';
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #ffffff;
+    margin: 0 auto;
+    padding: 0px;
+}
+
+.home {
+    background-image: url(../assets/cogumelo1.jpg);
+    position: static;
+    width: 100%;
+}
+
+header {
+    width: 100%;
+    height: 100px;
+    padding: 50px;
+    background-color: transparent;
+}
+
+.logo {
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.logo img{
+    height: 8vh;
+    margin-right: 1vw;
+}
+
+.menu ul {
+    list-style: none;
+    margin-top: .5rem;
+    display: flex;
+    font-size: 20px;
+}
+
+.menu ul li {
+    margin: 0 1.2rem;
+}
+
+.menu ul li a {
+    color: rgb(255, 255, 255);
+    font-size: 15px;
+    text-decoration: none;
+}
+
+.menu ul li a:hover {
+    color: rgb(8, 206, 1);
+    transition: 0.50;
+}
+
+.banner {
+    background-image: url('./assets/img/bg-jelly-fish-para_outras_pags.png');
+    padding: 100px 0;
+    background-size: cover;
+    width: 100%;
+}
+
+.banner .container {
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.form {
+    background-color: rgba(0, 0, 0, 0.25);
+    padding: 50px 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 101vh;
+    flex-direction: column;
+    border-radius: 50px;
+    margin-left: 40vh;
+}
+
+.form h1 {
+    color: green;
+    font-size: 23px;
+    margin-top: -5px;
+    margin-bottom: 10px;
+}
+
+.form label {
+    color: green;
+}
+
+.form select {
+    display: flex;
+    padding: 10px 8px;
+    margin: 20px 0;
+    flex-direction: column;
+    border-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid green;
+    outline: none;
+}
+
+.form input {
+    display: flex;
+    padding: 10px 8px;
+    margin: 20px 0;
+    flex-direction: column;
+    border-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid green;
+    outline: none;
+}
+
+.form p {
+    color: #fff;
+    font-size: 20px;
+    margin-bottom: -10px;
+}
+
+.container .form button {
+    margin-top: 20px;
+    width: 120px;
+    color: #fff;
+    background-color: green;
+    padding: 20px 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+
+.container .form  button:hover {
+    color: white;
+    background-color: rgb(14, 71, 0);
+}
+
+.resultado {
+    color: #fff;
+    font-size: 20px;
+}
+
+
+footer {
+    background-color: #1E1C21;
+    height: 7vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f2f2f2;
+}
+
+footer .container {
+    justify-content: center;
+
+}
+
+footer .container p {
+    color: rgb(255, 255, 255);
+    margin-top: 60px;
+    font-weight: bold;
+    font-size: 18px;
+}

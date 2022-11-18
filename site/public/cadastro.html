@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FungiTec</title>
+    <link rel="icon" href="./assets//favicon_io/favicon.ico">
+    <link rel="stylesheet" href="./css/cadastro.css">
+    <link rel="stylesheet" href="./css/SiteInst.css">
+    <script src="./js/funcoes.js"></script>
+</head>
+
+<body>
+    <div class="home">
+            <div class="container">
+                <div class="navebar">
+                    <div class="title">
+                        <img src="./assets/IMG-20221004-WA0432-removebg-preview.png" alt="">
+                        <h1>FungiTec</h1>
+                    </div>
+                    <ul>
+                            <li><a href="./index.html">Home</a></li>
+                            <li><a href="./simulador.html">Simulador</a></li>
+                            <li><a class="login" href="./login.html">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        <main>
+            <section class="banner">
+                <div class="container">
+                    <div class="form">
+                        <h2>Bem-Vindo!</h2>
+                        <br>
+                        <div class="input-campo">
+                            <p>Nome:</p>
+                            <label for="nome"></label>
+                            <input class="input_login" type="text" id="input_nome" placeholder="nome">
+                            <p>Email:</p>
+                            <label for="email"></label>
+                            <input class="input_login" type="email" id="input_email" placeholder="email@provedor" id="mail">
+                            <p>Senha:</p>
+                            <label for="Senha"></label>
+                            <input class="input_login" type="password" id="input_senha" placeholder="******" minlength="3" maxlength="16">
+                            <p>Repetir Senha:</p>
+                            <label for="Repetir Senha"></label>
+                            <input class="input_login" type="password" id="input_repetir_senha" placeholder="******" minlength="3" maxlength="16">
+                            <p>CPF:</p>
+                            <label for="CPF:"></label>
+                            <input class="input_login" type="text" id="input_cpf" placeholder="000.000.000-00" maxlength="11">
+
+                            <div class="button_login">
+                                <button class="button_enviar" type="submit" onclick="validar_campo_cadastro()">Enviar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <footer>
+        <h4>Desenvolvido por alunos SPTech - &copy; Copyright 2022</h4>
+    </footer>
+</body>
+
+</html>

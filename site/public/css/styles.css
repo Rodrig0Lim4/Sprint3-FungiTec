@@ -1,0 +1,305 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #1E1C21;
+    font-family: 'Barlow';
+    color: #ffffff;
+}
+.banner_img{
+    background-image: url(../assets/cogumelo1.jpg);
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+}
+
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.title{
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.title img{
+    height: 8vh;
+    margin-right: 1vw;
+}
+
+.navebar li {
+    display: inline-block;
+}
+
+.navebar a{
+    color:white;
+    text-decoration: none;
+}
+
+.navebar a:hover{
+    color: rgb(8, 206, 1);
+    transition: 0.3s all;
+}
+
+.login{
+    border: 2px solid rgb(8, 206, 1);
+    border-radius: 10vh;
+    width: 5.1vw;
+    height: 4.9vh;
+    padding: 2.4vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login a{
+    margin-top: 10px;
+}
+
+.login:hover{
+    background-color: rgba(0, 0, 0, 0.555);
+    color: white;
+}
+
+.navebar{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    height: 9vh;
+}
+
+.navebar ul{
+    width: 17vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container_banner_texto{
+    margin-top: 8vh;
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container_banner_texto h3{
+    text-align: center;
+    margin-bottom: 3vh;
+}
+
+.container_banner_texto h2{
+    margin: 8vh 0;
+    font-weight: 450;
+    font-size: 7.8vh;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.button_simulador{
+    background-color: rgb(6, 151, 1);
+    color: white;
+    font-size: 1.3em;
+    border-radius: 15px;
+    transition: 0.3s all;
+    border: 0;
+    width: 12.5vw;
+    height: 6vh;
+}
+
+.button_simulador:hover{
+    cursor: pointer;
+    background-color: rgb(14, 71, 0);
+    color: white;
+}
+
+.img_beneficio {
+    background-image: url(../assets/1032993.jpg);
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+}
+
+.img_beneficio .container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.titulo_beneficio{
+    color: rgb(6, 151, 1);
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    height: 7vh;
+    width: 20vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5vh 0;
+    margin-top: 10vh;
+    
+}
+
+.titulo_beneficio h2{
+    font-size: 1.3em;
+}
+
+.container_conteudo_beneficio{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10vh;
+
+}
+
+.div_conteudo_beneficio{
+    background-color: rgba(255, 255, 255, 0.6);
+    width: 20vw;
+    height: 55vh;
+    color: #1E1C21;
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-size: 3.1vh;
+}
+
+.container_numero_beneficio{
+    background-color: rgb(6, 151, 1);
+    height: 35px;
+    width: 35px;
+    border-radius: 180%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f2f2f2;
+    margin-bottom: 2vh;
+    font-size: 0.8em;
+}
+
+.div_conteudo_beneficio h2{
+    color: rgb(6, 151, 1);
+    margin-bottom: 2vh;
+    font-size: 1.3em;
+}
+
+.div_conteudo_beneficio h3{
+    font-size: 0.9em;
+}
+
+.container_quem_somos{
+    margin-top: 6vh;
+    margin-block: 10vh;
+    height: 70vh;
+    background-color: #40404038;
+    display: flex;
+    justify-content: space-between;
+    color: black;
+    text-align: center;
+}
+
+.container_quem_somos img{
+    height: 50vh;
+    margin:11vh 2vw;
+    margin-left: 30vh;
+}
+
+.container_quem_somos_conteudo{
+    background-color: #f2f2f2;
+    height: 100%;
+    width: 46vw;
+    border-radius: 25px;
+    padding: 40px 30px;
+    margin-right: 20vh;
+}
+
+.container_quem_somos_conteudo h2{
+    margin-bottom: 30px;
+    color: rgb(6, 151, 1);
+}
+
+.container_quem_somos_conteudo h3{
+    font-size: 3.6vh;
+}
+
+.container_contato{
+    margin: 10vh 0;
+    height: 50vh;
+    border-radius: 10px;
+    display: flex;
+    color: #ffffff;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.container_contato iframe{
+    height: 50vh;
+    width: 30vw;
+    border-radius: 15px 0 0 15px;
+}
+
+.div_imagem_icon{
+    display: flex;
+    font-size: 0.8em;
+    margin-left: 20vh;
+}
+
+.div_imagem_icon img{
+    width: 3vh;
+    margin-top: 10px;
+}
+
+.div_imagem_icon h3{
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.div_redes_sociais img{
+    width: 10vh;
+    margin-top: 15vh;
+    margin-left: 10vh;
+}
+
+.container_contato_conteudo{
+    width: 45vw;
+}
+
+.container_contato_conteudo .img_contato{
+    height: 50vh;
+    margin:11vh 2vw;
+    margin-left: 95vh;
+    margin-top: -44vh;
+}
+
+footer {
+    background-color: #1E1C21;
+    height: 7vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f2f2f2;
+}
+
+footer .container {
+    justify-content: center;
+
+}
+
+footer .container p {
+    color: rgb(255, 255, 255);
+    margin-top: 60px;
+    font-weight: bold;
+    font-size: 18px;
+}

@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FungiTec</title>
+    <link rel="stylesheet" href="./css/simulador.css">
+    <link rel="icon" href="./img/favicon_io/favicon.ico">
+    <link rel="stylesheet" href="./css/SiteInst.css">
+</head>
+
+<body>
+    <div class="home">
+        
+            <div class="container">
+                <div class="navebar">
+                    <div class="title">
+                        <img src="./assets/IMG-20221004-WA0432-removebg-preview.png" alt="">
+                        <h1>FungiTec</h1>
+                    </div>
+                    <ul>
+                            <li><a href="./index.html">Home</a></li>
+                            <li><a href="./simulador.html">Simulador</a></li>
+        
+                        <a class="login" href="./login.html">
+                            <li>Login</li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+        
+
+        <main>
+            <section class="banner">
+                <div class="container">
+                    <div class="form">
+                        <br>
+                        <h1>Simulador Financeiro</h1><br><br>
+
+                        <p>Nome da espécie:</p><select name="especie" id="select_especie">
+                            <option value="">Selecione</option>
+                            <option value="Shimeji">Shimeji</option>
+                            <option value="Shitake">Shitake</option>
+                            <option value="Champignon">Champignon</option>
+                        </select>
+
+                        <p>Quantidade de sacas mensal:</p><input type="text" id="input_qtd_sacas">
+
+                        <p>Porcentagem de perda na produção mensal:</p><input type="text" id="input_perda_sacas">
+
+                        <p>Valor por sacas:</p><input type="text" id="input_valor_sacas">
+
+                        <button onclick="calcular()">Calcular</button><br><br>
+
+                        <div id="div_resultado"></div>
+
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <footer>
+        <h4>Desenvolvido por alunos SPTech - &copy; Copyright 2022</h4>
+    </footer>
+</body>
+
+</html>
+
+<script>
+    
+    function calcular() {
+        var especie = select_especie.value;
+        var qtd_sacas = Number(input_qtd_sacas.value);
+        var perda_porcentagem = Number(input_perda_sacas.value);
+        var valor_sacas = Number(input_valor_sacas.value);
+
+        var perda_antiga = qtd_sacas * perda_porcentagem * 0.01;
+
+        div_resultado.innerHTML = ``;
+
+        if(especie == '' || qtd_sacas == '' || perda_porcentagem == '' || valor_sacas == ''){
+            alert(`test`)
+        }
+        //Reduzimos 50% da perda total do Champignon
+        else if(especie == 'Champignon'){
+            var eficiencia = perda_porcentagem * 0.5;
+            var perda_nova = qtd_sacas * eficiencia * 0.01;
+            var aproveitamento = (perda_antiga - perda_nova);
+            var lucro = (valor_sacas * aproveitamento).toFixed(2)
+            div_resultado.innerHTML = `
+            <br>
+                <span>
+              A média de cogumelo produzidos por safra atualmente é de
+              ${qtd_sacas} sacas.</span> <br>
+              <span>
+              A porcentagem de perdas atual é de
+              ${perda_porcentagem.toFixed()}% e com a implantação do
+              nosso sistema tornará a ser no máximo
+              ${eficiencia.toFixed()}%
+            </span>
+              <br>
+              <span>
+              Ou seja, ${aproveitamento.toFixed()} sacas serão aproveidas,
+              rendendo um lucro de aproximadamente de R$${lucro}
+              </span>
+            `
+        }
+        //Reduzimos 40% da perda  total do Shitake
+        else if(especie == 'Shitake'){
+            var eficiencia = perda_porcentagem * 0.6;
+            var perda_nova = qtd_sacas * eficiencia * 0.01;
+            var aproveitamento = (perda_antiga - perda_nova);
+            var lucro = (valor_sacas * aproveitamento).toFixed(2)
+            div_resultado.innerHTML = `
+            <br>
+                <span>
+              A média de cogumelo produzidos por safra atualmente é de
+              ${qtd_sacas} sacas.</span> <br>
+              <span>
+              A porcentagem de perdas atual é de
+              ${perda_porcentagem.toFixed()}% e com a implantação do
+              nosso sistema tornará a ser no máximo
+              ${eficiencia.toFixed()}%
+            </span>
+              <br>
+              <span>
+              Ou seja, ${aproveitamento.toFixed()} sacas serão aproveidas,
+              rendendo um lucro de aproximadamente de R$${lucro}
+              </span>
+            `
+        } 
+        //Reduzimos 30% da perda total do Shimeji
+        else{
+            var eficiencia = perda_porcentagem * 0.7;
+            var perda_nova = qtd_sacas * eficiencia * 0.01;
+            var aproveitamento = (perda_antiga - perda_nova);
+            var lucro = (valor_sacas * aproveitamento).toFixed(2)
+            div_resultado.innerHTML = `
+            <br>
+                <span>
+              A média de cogumelo produzidos por safra atualmente é de
+              ${qtd_sacas} sacas.</span> <br>
+              <span>
+              A porcentagem de perdas atual é de
+              ${perda_porcentagem.toFixed()}% e com a implantação do
+              nosso sistema tornará a ser no máximo
+              ${eficiencia.toFixed()}%
+            </span>
+              <br>
+              <span>
+              Ou seja, ${aproveitamento.toFixed()} sacas serão aproveidas,
+              rendendo um lucro de aproximadamente de R$${lucro}
+              </span>
+            `
+        }
+
+    }
+</script>

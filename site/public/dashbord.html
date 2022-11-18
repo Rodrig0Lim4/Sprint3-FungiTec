@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/SiteInst.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+    <div class="banner_img_graficos">
+        <div class="container">
+            <div class="navebar grafico_navebar">
+                <div class="title">
+                    <img src="./assets/IMG-20221004-WA0432-removebg-preview.png" alt="">
+                    <h1>FungiTec</h1>
+                </div>
+                <ul style="width: 10vw;">
+                    <li>
+                        <div id="test">
+                            <button onclick="botao_not_alert()" class="botao_notificacao">
+                                <img id="img_not" style="height: 5vh;" src="../img/NotificacaoAlerta.png" alt="">
+                            </button>
+                        </div>
+                    </li>
+                    <li><a href="./index.html">
+                            <img src="../img/img_loggof.png" alt="loggof">
+                        </a></li>
+                </ul>
+            </div>
+
+            <div class="container_dashbord">
+                <div class="container_dashbord_select">
+                    <div class="select_dash">
+
+                        <select id="select_estufa" onchange="verificar_estufa(), verificar_sensor()">
+                            <option value="">Nenhum</option>
+                            <option value="1">Estufa 1</option>
+                            <option value="">Estufa 2</option>
+                        </select>
+
+                        <select id="select_sensor" onchange="verificar_sensor()">
+                            <option value="">Nenhum</option>
+                        </select>
+
+                    </div>
+                    <div class="container_tempo_atual">
+                        <div id="umidade_atual"></div>
+                        <hr id="hr_style" style="border-style: none; height: 5vh; color: rgb(6, 151, 1);">
+                        <div id="temperatura_atual"></div>
+                        <img id="img_temperatura">
+
+                    </div>
+
+                </div>
+                <div class="container_graficos_temp_umid">
+                    <div class="container_grafico">
+                        <div id="button_temperatura_umidade">
+                        </div>
+                        <div id="nome_graficos"></div>
+
+                        <div class="container_grafico_linha">
+                            <div id="graficos_LinhaHora" class="graficos_chart">
+
+                            </div>
+                            <div id="graficos_LinhaMes" class="graficos_chart">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        <h4>Todos os direitos reservados</h4>
+    </footer>
+
+</body>
+
+
+</html>
+
+<script>
+
+    function botao_not_alert(){
+        test.innerHTML = `
+        <button onclick="botao_not()" class="botao_notificacao" style="border-style: none;">
+                                <img id="img_not" style="height: 5vh;" src="../img/Notificacao.png" alt="">
+                            </button>
+        `
+        alert(`Estufa 1 com o sensor DHT11.1 está com uma alta temperatura as 21:00`)
+        alert(`Estufa 1 com o sensor DHT11.3 está com uma baixa temperatura as 21:00`)
+        alert(`Estufa 1 com o sensor DHT11.3 está com uma baixa umidade as 21:00`)
+        
+
+    }
+
+    function botao_not(){
+        alert(`Sem problemas`)
+    }
+
+    function verificar_estufa() {
+        var estufa = select_estufa.value;
+
+        if (estufa == 1) {
+            select_sensor.innerHTML = `
+                            <option value="Nenhum">Nenhum</option>
+                            <option value="Quente">DHT11.1</option>
+                            <option value="Normal">DHT11.2</option>
+                            <option value="Frio">DHT11.3</option>
+                        `
+
+
+        } else {
+            alert(`Sem sensores cadastrados`)
+            select_sensor.innerHTML = `<option value="Nenhum">Nenhum</option>`
+        }
+
+    }
+
+    function verificar_sensor() {
+        var temperatura = select_sensor.value;
+        graficos_LinhaHora.innerHTML = ''
+        graficos_LinhaMes.innerHTML = ''
+        nome_graficos.innerHTML = ''
+
+
+        if (temperatura == "Quente") {
+            umidade_atual.innerHTML = `90%`
+            hr_style.style.borderStyle = `solid`
+            temperatura_atual.innerHTML = `29°C`
+            img_temperatura.src = "../img/quente_term.png"
+            button_temperatura_umidade.innerHTML = `
+                            <button onclick="verificar_temperatura(), verificar_graficoTemp2()">Temperatura</button>
+                            <button onclick="verificar_umidade(), verificar_graficoUmid2()">Umidade</button>`
+        } else if (temperatura == "Normal") {
+            umidade_atual.innerHTML = `88%`
+            hr_style.style.borderStyle = `solid`
+            temperatura_atual.innerHTML = `22°C`
+            img_temperatura.src = "../img/tem_normal.png"
+            button_temperatura_umidade.innerHTML = `
+                            <button onclick="verificar_temperatura(), verificar_graficoTemp3()">Temperatura</button>
+                            <button onclick="verificar_umidade(), verificar_graficoUmid3()">Umidade</button>`
+        } else if (temperatura == "Frio") {
+            umidade_atual.innerHTML = `65%`
+            hr_style.style.borderStyle = `solid`
+            img_temperatura.src = "../img/frio_term.png"
+            temperatura_atual.innerHTML = `17°C`
+            button_temperatura_umidade.innerHTML = `
+            <button onclick="verificar_temperatura(), verificar_graficoTemp1()">Temperatura</button>
+                            <button onclick="verificar_umidade(), verificar_graficoUmid1()">Umidade</button>`
+        } else {
+            temperatura_atual.innerHTML = ``
+            img_temperatura.src = ''
+            button_temperatura_umidade.innerHTML = ''
+            nome_graficos.innerHTML = ''
+            graficos.innerHTML = ''
+
+        }
+    }
+
+    function verificar_temperatura() {
+        var temperatura = select_sensor.value;
+
+        if (temperatura == "Quente") {
+            nome_graficos.innerHTML = `Temperatura`
+
+            graficos_LinhaHora.innerHTML = `
+            <canvas id="temperatura2Linha1"></canvas>
+            `
+            graficos_LinhaMes.innerHTML = `
+            <canvas id="temperatura2Linha2"></canvas>
+            `
+        } else if (temperatura == "Normal") {
+            nome_graficos.innerHTML = `Temperatura`
+
+            graficos_LinhaHora.innerHTML = `
+            <canvas id="temperatura3Linha1"></canvas>
+            `
+            graficos_LinhaMes.innerHTML = `
+            <canvas id="temperatura3Linha2"></canvas>
+            `
+        } else if (temperatura == "Frio") {
+
+            nome_graficos.innerHTML = `Temperatura`
+
+            graficos_LinhaHora.innerHTML = `
+            <canvas id="temperatura1Linha1"></canvas>
+            `
+            graficos_LinhaMes.innerHTML = `
+            <canvas id="temperatura1Linha2"></canvas>
+            `
+
+        } else {
+            img_temperatura.src = ''
+            button_temperatura_umidade.innerHTML = ''
+            nome_graficos.innerHTML = ''
+            graficos_Linha.innerHTML = ''
+            graficos_Barra.innerHTML = ''
+
+        }
+
+    }
+
+    function verificar_umidade() {
+        var temperatura = select_sensor.value;
+
+        if (temperatura == "Quente") {
+            nome_graficos.innerHTML = `Umidade`
+
+            graficos_LinhaHora.innerHTML = `
+            <canvas id="umidade2Linha1"></canvas>
+            `
+            graficos_LinhaMes.innerHTML = `
+            <canvas id="umidade2Linha2"></canvas>
+            `
+        } else if (temperatura == "Normal") {
+            nome_graficos.innerHTML = `Umidade`
+
+            graficos_LinhaHora.innerHTML = `
+            <canvas id="umidade3Linha1"></canvas>
+            `
+            graficos_LinhaMes.innerHTML = `
+            <canvas id="umidade3Linha2"></canvas>
+            `
+        } else if (temperatura == "Frio") {
+
+            nome_graficos.innerHTML = `Umidade`
+
+            graficos_LinhaHora.innerHTML = `
+            <canvas id="umidade1Linha1"></canvas>
+            `
+            graficos_LinhaMes.innerHTML = `
+            <canvas id="umidade1Linha2"></canvas>
+            `
+
+        } else {
+            img_temperatura.src = ''
+            button_temperatura_umidade.innerHTML = ''
+            nome_graficos.innerHTML = ''
+            graficos_Linha.innerHTML = ''
+            graficos_Barra.innerHTML = ''
+
+        }
+
+    }
+
+
+    function verificar_graficoTemp1() {
+        const labelsTemp1Li1 = [
+            '12:00',
+            '13:00',
+            '14:00',
+            '15:00',
+            '16:00',
+            '17:00',
+            '18:00',
+            '19:00',
+            '20:00',
+            '21:00',
+        ];
+
+        const dataTemp1Li1 = {
+            labels: labelsTemp1Li1,
+            datasets: [{
+                label: 'Temperatura por Hora',
+                backgroundColor: 'rgb(6, 151, 1)',
+                borderColor: 'rgb(6, 151, 1)',
+                data: [21, 22, 19, 19, 17, 15, 16, 16, 18, 17],
+            }]
+        };
+
+        const configTemp1Li1 = {
+            type: 'line',
+            data: dataTemp1Li1,
+            options: {}
+        };
+        const linha1temp1 = new Chart(
+            document.getElementById('temperatura1Linha1'),
+            configTemp1Li1
+        );
+
+
+        const labelsTemp1Li2 = [
+            'Janeiro',
+            'Fevereiro',
+            'Março',
+            'Abril',
+            'Maio',
+        ];
+
+        const dataTemp1Li2 = {
+            labels: labelsTemp1Li2,
+            datasets: [{
+                label: 'Mediana Temperatura por Mês',
+                backgroundColor: 'rgb(6, 151, 1)',
+                borderColor: 'rgb(6, 151, 1)',
+                data: [21, 22, 21, 19, 16],
+            }]
+        };
+
+        const configTemp1Li2 = {
+            type: 'line',
+            data: dataTemp1Li2,
+            options: {}
+        };
+        const linha1temp2 = new Chart(
+            document.getElementById('temperatura1Linha2'),
+            configTemp1Li2
+        );
+
+    }
+
+    function verificar_graficoTemp2() {
+
+        const labelsTemp2Li1 = [
+        '12:00',
+            '13:00',
+            '14:00',
+            '15:00',
+            '16:00',
+            '17:00',
+            '18:00',
+            '19:00',
+            '20:00',
+            '21:00',
+        ];
+
+        const dataTemp2Li1 = {
+            labels: labelsTemp2Li1,
+            datasets: [{
+                label: 'Temperatura por Hora',
+                backgroundColor: 'rgb(6, 151, 1)',
+                borderColor: 'rgb(6, 151, 1)',
+                data: [24, 26, 24, 25, 26, 27, 26, 28, 27, 29],
+            }]
+        };
+
+        const configTemp2Li1 = {
+            type: 'line',
+            data: dataTemp2Li1,
+            options: {}
+        };
+        const linha2temp1 = new Chart(
+            document.getElementById('temperatura2Linha1'),
+            configTemp2Li1
+        );
+
+
+        const labelsTemp2Li2 = [
+            'Janeiro',
+            'Fevereiro',
+            'Março',
+            'Abril',
+            'Maio',
+        ];
+
+        const dataTemp2Li2 = {
+            labels: labelsTemp2Li2,
+            datasets: [{
+                label: 'Mediana Temperatura por Mês',
+                backgroundColor: 'rgb(6, 151, 1)',
+                borderColor: 'rgb(6, 151, 1)',
+                data: [25, 24, 27, 25, 29],
+            }]
+        };
+
+        const configTemp2Li2 = {
+            type: 'line',
+            data: dataTemp2Li2,
+            options: {}
+        };
+        const linha2temp2 = new Chart(
+            document.getElementById('temperatura2Linha2'),
+            configTemp2Li2
+        );
+    }
+
+    function verificar_graficoTemp3() {
+
+        const labelsTemp3Li1 = [
+        '12:00',
+            '13:00',
+            '14:00',
+            '15:00',
+            '16:00',
+            '17:00',
+            '18:00',
+            '19:00',
+            '20:00',
+            '21:00',
+        ];
+
+        const dataTemp3Li1 = {
+            labels: labelsTemp3Li1,
+            datasets: [{
+                label: 'Temperatura por Hora',
+                backgroundColor: 'rgb(6, 151, 1)',
+                borderColor: 'rgb(6, 151, 1)',
+                data: [24, 25, 22, 22, 24, 25, 23, 21, 20, 22],
+            }]
+        };
+
+        const configTemp3Li1 = {
+            type: 'line',
+            data: dataTemp3Li1,
+            options: {}
+        };
+        const linha3temp1 = new Chart(
+            document.getElementById('temperatura3Linha1'),
+            configTemp3Li1
+        );
+
+
+        const labelsTemp3Li2 = [
+            'Janeiro',
+            'Fevereiro',
+            'Março',
+            'Abril',
+            'Maio',
+        ];
+
+        const dataTemp3Li2 = {
+            labels: labelsTemp3Li2,
+            datasets: [{
+                label: 'Mediana Temperatura por Mês',
+                backgroundColor: 'rgb(6, 151, 1)',
+                borderColor: 'rgb(6, 151, 1)',
+                data: [22, 24, 23, 25, 21],
+            }]
+        };
+
+        const configTemp3Li2 = {
+            type: 'line',
+            data: dataTemp3Li2,
+            options: {}
+        };
+        const linha3temp2 = new Chart(
+            document.getElementById('temperatura3Linha2'),
+            configTemp3Li2
+        );
+
+
+    }
+
+
+    function verificar_graficoUmid1() {
+        const labelsUmid1Li1 = [
+            '12:00',
+            '13:00',
+            '14:00',
+            '15:00',
+            '16:00',
+            '17:00',
+            '18:00',
+            '19:00',
+            '20:00',
+            '21:00',
+        ];
+
+        const dataUmid1Li1 = {
+            labels: labelsUmid1Li1,
+            datasets: [{
+                label: 'Umidade por Hora',
+                backgroundColor: 'rgb(6, 151, 1)',
+                borderColor: 'rgb(6, 151, 1)',
+                data: [80, 76, 78, 79, 74, 71, 73, 71, 69, 65],
+            }]
+        };
+
+        const configUmid1Li1 = {
+            type: 'line',
+            data: dataUmid1Li1,
+            options: {}
+        };
+        const linha1Umid1 = new Chart(
+            document.getElementById('umidade1Linha1'),
+            configUmid1Li1
+        );
+
+
+        const labelsUmid1Li2 = [
+            'Janeiro',
+            'Fevereiro',
+            'Março',
+            'Abril',
+            'Maio',
+        ];
+
+        const dataUmid1Li2 = {
+            labels: labelsUmid1Li2,
+            datasets: [{
+                label: 'Mediana Umidade por Mês',
+                backgroundColor: 'rgb(6, 151, 1)',
+                borderColor: 'rgb(6, 151, 1)',
+                data: [70, 78, 73, 75, 71],
+            }]
+        };
+
+        const configUmid1Li2 = {
+            type: 'line',
+            data: dataUmid1Li2,
+            options: {}
+        };
+        const linha1Umid2 = new Chart(
+            document.getElementById('umidade1Linha2'),
+            configUmid1Li2
+        );
+
+    }
+
+
+    function verificar_graficoUmid2() {
+        const labelsUmid2Li1 = [
+            '12:00',
+            '13:00',
+            '14:00',
+            '15:00',
+            '16:00',
+            '17:00',
+            '18:00',
+            '19:00',
+            '20:00',
+            '21:00',
+        ];
+
+        const dataUmid2Li1 = {
+            labels: labelsUmid2Li1,
+            datasets: [{
+                label: 'Umidade por Hora',
+                backgroundColor: 'rgb(6, 151, 1)',
+                borderColor: 'rgb(6, 151, 1)',
+                data: [80, 82, 88, 87, 84, 86, 87, 82, 84, 90],
+            }]
+        };
+
+        const configUmid2Li1 = {
+            type: 'line',
+            data: dataUmid2Li1,
+            options: {}
+        };
+        const linha2Umid1 = new Chart(
+            document.getElementById('umidade2Linha1'),
+            configUmid2Li1
+        );
+
+
+        const labelsUmid2Li2 = [
+            'Janeiro',
+            'Fevereiro',
+            'Março',
+            'Abril',
+            'Maio',
+        ];
+
+        const dataUmid2Li2 = {
+            labels: labelsUmid2Li2,
+            datasets: [{
+                label: 'Mediana Umidade por Mês',
+                backgroundColor: 'rgb(6, 151, 1)',
+                borderColor: 'rgb(6, 151, 1)',
+                data: [80, 83, 81, 85, 84],
+            }]
+        };
+
+        const configUmid2Li2 = {
+            type: 'line',
+            data: dataUmid2Li2,
+            options: {}
+        };
+        const linha2Umid2 = new Chart(
+            document.getElementById('umidade2Linha2'),
+            configUmid2Li2
+        );
+
+    }
+
+    function verificar_graficoUmid3() {
+        const labelsUmid3Li1 = [
+            '12:00',
+            '13:00',
+            '14:00',
+            '15:00',
+            '16:00',
+            '17:00',
+            '18:00',
+            '19:00',
+            '20:00',
+            '21:00',
+        ];
+
+        const dataUmid3Li1 = {
+            labels: labelsUmid3Li1,
+            datasets: [{
+                label: 'Umidade por Hora',
+                backgroundColor: 'rgb(6, 151, 1)',
+                borderColor: 'rgb(6, 151, 1)',
+                data: [84, 87, 85, 82, 84, 87, 90, 85, 81, 88],
+            }]
+        };
+
+        const configUmid3Li1 = {
+            type: 'line',
+            data: dataUmid3Li1,
+            options: {}
+        };
+        const linha3Umid1 = new Chart(
+            document.getElementById('umidade3Linha1'),
+            configUmid3Li1
+        );
+
+
+        const labelsUmid3Li2 = [
+            'Janeiro',
+            'Fevereiro',
+            'Março',
+            'Abril',
+            'Maio',
+        ];
+
+        const dataUmid3Li2 = {
+            labels: labelsUmid3Li2,
+            datasets: [{
+                label: 'Mediana Umidade por Mês',
+                backgroundColor: 'rgb(6, 151, 1)',
+                borderColor: 'rgb(6, 151, 1)',
+                data: [84, 82, 81, 85, 87],
+            }]
+        };
+
+        const configUmid3Li2 = {
+            type: 'line',
+            data: dataUmid3Li2,
+            options: {}
+        };
+        const linha3Umid2 = new Chart(
+            document.getElementById('umidade3Linha2'),
+            configUmid3Li2
+        );
+
+    }
+
+</script>

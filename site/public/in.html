@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div>
+        <canvas id="temperatura1Barra"></canvas>
+    </div>
+</body>
+<script>
+
+const labelsTemp1Br = [
+            'Janeiro',
+            'Fevereiro',
+            'Março',
+            'Abril',
+            'Maio',
+        ];
+
+        const dataTemp1Br = {
+            labels: labelsTemp1Br,
+            datasets: [{
+                label: 'Temperatura por mês',
+                backgroundColor: 'rgb(6, 151, 1)',
+                borderColor: 'rgb(6, 151, 1)',
+                data: [21, 22, 21, 19, 16],
+            }]
+        };
+
+        const configTemp1Br = {
+            type: 'line',
+            data: dataTemp1Br,
+            options: {}
+        };
+        const barratemp1 = new Chart(
+            document.getElementById('temperatura1Barra'),
+            configTemp1Br
+        );
+        
+</script>
+</html>
