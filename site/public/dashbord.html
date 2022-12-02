@@ -11,7 +11,7 @@
 
 </head>
 
-<body>
+<body onload="">
 
     <div class="banner_img_graficos">
         <div class="container">
@@ -69,7 +69,7 @@
 
                             </div>
                             <div id="graficos_LinhaMes" class="graficos_chart">
-
+                                
                             </div>
 
                         </div>
@@ -94,6 +94,9 @@
 
 <script>
 
+    var fkSensor = 0;
+    let proximaAtualizacao;
+
     function botao_not_alert(){
         test.innerHTML = `
         <button onclick="botao_not()" class="botao_notificacao" style="border-style: none;">
@@ -117,9 +120,8 @@
         if (estufa == 1) {
             select_sensor.innerHTML = `
                             <option value="Nenhum">Nenhum</option>
-                            <option value="Quente">DHT11.1</option>
-                            <option value="Normal">DHT11.2</option>
-                            <option value="Frio">DHT11.3</option>
+                            <option value="1">1.Norte Dados</option>
+                            <option value="2">1.Sul Dados</option>
                         `
 
 
@@ -137,31 +139,25 @@
         nome_graficos.innerHTML = ''
 
 
-        if (temperatura == "Quente") {
+        if (temperatura == "1") {
+            fkSensor = 1;
             umidade_atual.innerHTML = `90%`
             hr_style.style.borderStyle = `solid`
             temperatura_atual.innerHTML = `29°C`
             img_temperatura.src = "../img/quente_term.png"
-            button_temperatura_umidade.innerHTML = `
-                            <button onclick="verificar_temperatura(), verificar_graficoTemp2()">Temperatura</button>
-                            <button onclick="verificar_umidade(), verificar_graficoUmid2()">Umidade</button>`
-        } else if (temperatura == "Normal") {
+            graficos_LinhaHora.innerHTML = `
+            <canvas id="myChart"></canvas>
+            `
+            obterDadosGrafico();
+        } else if (temperatura == "2") {
+            fkSensor = 2;
+            obterDadosGrafico();
             umidade_atual.innerHTML = `88%`
             hr_style.style.borderStyle = `solid`
             temperatura_atual.innerHTML = `22°C`
             img_temperatura.src = "../img/tem_normal.png"
-            button_temperatura_umidade.innerHTML = `
-                            <button onclick="verificar_temperatura(), verificar_graficoTemp3()">Temperatura</button>
-                            <button onclick="verificar_umidade(), verificar_graficoUmid3()">Umidade</button>`
-        } else if (temperatura == "Frio") {
-            umidade_atual.innerHTML = `65%`
-            hr_style.style.borderStyle = `solid`
-            img_temperatura.src = "../img/frio_term.png"
-            temperatura_atual.innerHTML = `17°C`
-            button_temperatura_umidade.innerHTML = `
-            <button onclick="verificar_temperatura(), verificar_graficoTemp1()">Temperatura</button>
-                            <button onclick="verificar_umidade(), verificar_graficoUmid1()">Umidade</button>`
-        } else {
+            
+        }else {
             temperatura_atual.innerHTML = ``
             img_temperatura.src = ''
             button_temperatura_umidade.innerHTML = ''
@@ -171,39 +167,28 @@
         }
     }
 
+
     function verificar_temperatura() {
         var temperatura = select_sensor.value;
 
-        if (temperatura == "Quente") {
+        if (temperatura == "1") {
             nome_graficos.innerHTML = `Temperatura`
 
             graficos_LinhaHora.innerHTML = `
-            <canvas id="temperatura2Linha1"></canvas>
+            <canvas id="myChart"></canvas>
             `
             graficos_LinhaMes.innerHTML = `
-            <canvas id="temperatura2Linha2"></canvas>
+            <canvas id="myChart"></canvas>
             `
-        } else if (temperatura == "Normal") {
-            nome_graficos.innerHTML = `Temperatura`
+        } else if (temperatura == "2") {
+            nome_graficos.innerHTtemperatura2Linha2ML = `Temperatura`
 
             graficos_LinhaHora.innerHTML = `
             <canvas id="temperatura3Linha1"></canvas>
             `
             graficos_LinhaMes.innerHTML = `
             <canvas id="temperatura3Linha2"></canvas>
-            `
-        } else if (temperatura == "Frio") {
-
-            nome_graficos.innerHTML = `Temperatura`
-
-            graficos_LinhaHora.innerHTML = `
-            <canvas id="temperatura1Linha1"></canvas>
-            `
-            graficos_LinhaMes.innerHTML = `
-            <canvas id="temperatura1Linha2"></canvas>
-            `
-
-        } else {
+            `}else {
             img_temperatura.src = ''
             button_temperatura_umidade.innerHTML = ''
             nome_graficos.innerHTML = ''
@@ -217,7 +202,7 @@
     function verificar_umidade() {
         var temperatura = select_sensor.value;
 
-        if (temperatura == "Quente") {
+        if (temperatura == "1") {
             nome_graficos.innerHTML = `Umidade`
 
             graficos_LinhaHora.innerHTML = `
@@ -226,7 +211,7 @@
             graficos_LinhaMes.innerHTML = `
             <canvas id="umidade2Linha2"></canvas>
             `
-        } else if (temperatura == "Normal") {
+        } else if (temperatura == "2") {
             nome_graficos.innerHTML = `Umidade`
 
             graficos_LinhaHora.innerHTML = `
@@ -235,17 +220,6 @@
             graficos_LinhaMes.innerHTML = `
             <canvas id="umidade3Linha2"></canvas>
             `
-        } else if (temperatura == "Frio") {
-
-            nome_graficos.innerHTML = `Umidade`
-
-            graficos_LinhaHora.innerHTML = `
-            <canvas id="umidade1Linha1"></canvas>
-            `
-            graficos_LinhaMes.innerHTML = `
-            <canvas id="umidade1Linha2"></canvas>
-            `
-
         } else {
             img_temperatura.src = ''
             button_temperatura_umidade.innerHTML = ''
@@ -258,398 +232,137 @@
     }
 
 
-    function verificar_graficoTemp1() {
-        const labelsTemp1Li1 = [
-            '12:00',
-            '13:00',
-            '14:00',
-            '15:00',
-            '16:00',
-            '17:00',
-            '18:00',
-            '19:00',
-            '20:00',
-            '21:00',
-        ];
+    function obterDadosGrafico() {
+        alert(fkSensor)
+        if (proximaAtualizacao != undefined) {
+            clearTimeout(proximaAtualizacao);
+        }
 
-        const dataTemp1Li1 = {
-            labels: labelsTemp1Li1,
-            datasets: [{
-                label: 'Temperatura por Hora',
-                backgroundColor: 'rgb(6, 151, 1)',
-                borderColor: 'rgb(6, 151, 1)',
-                data: [21, 22, 19, 19, 17, 15, 16, 16, 18, 17],
-            }]
-        };
+        fetch(`/medidas/ultimas/${fkSensor}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
 
-        const configTemp1Li1 = {
-            type: 'line',
-            data: dataTemp1Li1,
-            options: {}
-        };
-        const linha1temp1 = new Chart(
-            document.getElementById('temperatura1Linha1'),
-            configTemp1Li1
-        );
-
-
-        const labelsTemp1Li2 = [
-            'Janeiro',
-            'Fevereiro',
-            'Março',
-            'Abril',
-            'Maio',
-        ];
-
-        const dataTemp1Li2 = {
-            labels: labelsTemp1Li2,
-            datasets: [{
-                label: 'Mediana Temperatura por Mês',
-                backgroundColor: 'rgb(6, 151, 1)',
-                borderColor: 'rgb(6, 151, 1)',
-                data: [21, 22, 21, 19, 16],
-            }]
-        };
-
-        const configTemp1Li2 = {
-            type: 'line',
-            data: dataTemp1Li2,
-            options: {}
-        };
-        const linha1temp2 = new Chart(
-            document.getElementById('temperatura1Linha2'),
-            configTemp1Li2
-        );
-
+                    plotarGrafico(resposta, fkSensor);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
     }
 
-    function verificar_graficoTemp2() {
+    function plotarGrafico(resposta, fkSensor) {
+        console.log('iniciando plotagem do gráfico...');
 
-        const labelsTemp2Li1 = [
-        '12:00',
-            '13:00',
-            '14:00',
-            '15:00',
-            '16:00',
-            '17:00',
-            '18:00',
-            '19:00',
-            '20:00',
-            '21:00',
-        ];
-
-        const dataTemp2Li1 = {
-            labels: labelsTemp2Li1,
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [];
+        
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
             datasets: [{
-                label: 'Temperatura por Hora',
-                backgroundColor: 'rgb(6, 151, 1)',
-                borderColor: 'rgb(6, 151, 1)',
-                data: [24, 26, 24, 25, 26, 27, 26, 28, 27, 29],
+                label: 'Umidade',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            },
+            {
+                label: 'Temperatura',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(199, 52, 52)',
+                tension: 0.1
             }]
         };
-
-        const configTemp2Li1 = {
+        
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+        
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            labels.push(registro.momento_grafico);
+            dados.datasets[0].data.push(registro.umidade);
+            dados.datasets[1].data.push(registro.temperatura);
+        }
+        
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+        
+        // Criando estrutura para plotar gráfico - config
+        const config = {
             type: 'line',
-            data: dataTemp2Li1,
-            options: {}
+            data: dados,
         };
-        const linha2temp1 = new Chart(
-            document.getElementById('temperatura2Linha1'),
-            configTemp2Li1
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById('myChart'),
+            config
         );
 
-
-        const labelsTemp2Li2 = [
-            'Janeiro',
-            'Fevereiro',
-            'Março',
-            'Abril',
-            'Maio',
-        ];
-
-        const dataTemp2Li2 = {
-            labels: labelsTemp2Li2,
-            datasets: [{
-                label: 'Mediana Temperatura por Mês',
-                backgroundColor: 'rgb(6, 151, 1)',
-                borderColor: 'rgb(6, 151, 1)',
-                data: [25, 24, 27, 25, 29],
-            }]
-        };
-
-        const configTemp2Li2 = {
-            type: 'line',
-            data: dataTemp2Li2,
-            options: {}
-        };
-        const linha2temp2 = new Chart(
-            document.getElementById('temperatura2Linha2'),
-            configTemp2Li2
-        );
+        setTimeout(() => atualizarGrafico(fkSensor, dados, myChart), 2000);
     }
 
-    function verificar_graficoTemp3() {
+    function atualizarGrafico(fkSensor, dados, myChart) {
 
-        const labelsTemp3Li1 = [
-        '12:00',
-            '13:00',
-            '14:00',
-            '15:00',
-            '16:00',
-            '17:00',
-            '18:00',
-            '19:00',
-            '20:00',
-            '21:00',
-        ];
+fetch(`/medidas/tempo-real/${fkSensor}`, { cache: 'no-store' }).then(function (response) {
+    if (response.ok) {
+        response.json().then(function (novoRegistro) {
 
-        const dataTemp3Li1 = {
-            labels: labelsTemp3Li1,
-            datasets: [{
-                label: 'Temperatura por Hora',
-                backgroundColor: 'rgb(6, 151, 1)',
-                borderColor: 'rgb(6, 151, 1)',
-                data: [24, 25, 22, 22, 24, 25, 23, 21, 20, 22],
-            }]
-        };
+            console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+            console.log(`Dados atuais do gráfico:`);
+            console.log(dados);
 
-        const configTemp3Li1 = {
-            type: 'line',
-            data: dataTemp3Li1,
-            options: {}
-        };
-        const linha3temp1 = new Chart(
-            document.getElementById('temperatura3Linha1'),
-            configTemp3Li1
-        );
+            document.getElementById("avisoCaptura").innerHTML = ""
 
+            if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
+                console.log("---------------------------------------------------------------")
+                console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                document.getElementById("avisoCaptura").innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+                console.log("Horário do novo dado capturado:")
+                console.log(novoRegistro[0].momento_grafico)
+                console.log("Horário do último dado capturado:")
+                console.log(dados.labels[dados.labels.length - 1])
+                console.log("---------------------------------------------------------------")
+            } else {
+                // tirando e colocando valores no gráfico
+                dados.labels.shift(); // apagar o primeiro
+                dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
 
-        const labelsTemp3Li2 = [
-            'Janeiro',
-            'Fevereiro',
-            'Março',
-            'Abril',
-            'Maio',
-        ];
+                dados.datasets[0].data.shift();  // apagar o primeiro de umidade
+                dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de umidade
 
-        const dataTemp3Li2 = {
-            labels: labelsTemp3Li2,
-            datasets: [{
-                label: 'Mediana Temperatura por Mês',
-                backgroundColor: 'rgb(6, 151, 1)',
-                borderColor: 'rgb(6, 151, 1)',
-                data: [22, 24, 23, 25, 21],
-            }]
-        };
+                dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
+                dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
 
-        const configTemp3Li2 = {
-            type: 'line',
-            data: dataTemp3Li2,
-            options: {}
-        };
-        const linha3temp2 = new Chart(
-            document.getElementById('temperatura3Linha2'),
-            configTemp3Li2
-        );
+                myChart.update();
+            }
 
-
+            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+            proximaAtualizacao = setTimeout(() => atualizarGrafico(fkSensor, dados, myChart), 2000);
+        });
+    } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+        proximaAtualizacao = setTimeout(() => atualizarGrafico(fkSensor, dados, myChart), 2000);
     }
+})
+    .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });
 
-
-    function verificar_graficoUmid1() {
-        const labelsUmid1Li1 = [
-            '12:00',
-            '13:00',
-            '14:00',
-            '15:00',
-            '16:00',
-            '17:00',
-            '18:00',
-            '19:00',
-            '20:00',
-            '21:00',
-        ];
-
-        const dataUmid1Li1 = {
-            labels: labelsUmid1Li1,
-            datasets: [{
-                label: 'Umidade por Hora',
-                backgroundColor: 'rgb(6, 151, 1)',
-                borderColor: 'rgb(6, 151, 1)',
-                data: [80, 76, 78, 79, 74, 71, 73, 71, 69, 65],
-            }]
-        };
-
-        const configUmid1Li1 = {
-            type: 'line',
-            data: dataUmid1Li1,
-            options: {}
-        };
-        const linha1Umid1 = new Chart(
-            document.getElementById('umidade1Linha1'),
-            configUmid1Li1
-        );
-
-
-        const labelsUmid1Li2 = [
-            'Janeiro',
-            'Fevereiro',
-            'Março',
-            'Abril',
-            'Maio',
-        ];
-
-        const dataUmid1Li2 = {
-            labels: labelsUmid1Li2,
-            datasets: [{
-                label: 'Mediana Umidade por Mês',
-                backgroundColor: 'rgb(6, 151, 1)',
-                borderColor: 'rgb(6, 151, 1)',
-                data: [70, 78, 73, 75, 71],
-            }]
-        };
-
-        const configUmid1Li2 = {
-            type: 'line',
-            data: dataUmid1Li2,
-            options: {}
-        };
-        const linha1Umid2 = new Chart(
-            document.getElementById('umidade1Linha2'),
-            configUmid1Li2
-        );
-
-    }
-
-
-    function verificar_graficoUmid2() {
-        const labelsUmid2Li1 = [
-            '12:00',
-            '13:00',
-            '14:00',
-            '15:00',
-            '16:00',
-            '17:00',
-            '18:00',
-            '19:00',
-            '20:00',
-            '21:00',
-        ];
-
-        const dataUmid2Li1 = {
-            labels: labelsUmid2Li1,
-            datasets: [{
-                label: 'Umidade por Hora',
-                backgroundColor: 'rgb(6, 151, 1)',
-                borderColor: 'rgb(6, 151, 1)',
-                data: [80, 82, 88, 87, 84, 86, 87, 82, 84, 90],
-            }]
-        };
-
-        const configUmid2Li1 = {
-            type: 'line',
-            data: dataUmid2Li1,
-            options: {}
-        };
-        const linha2Umid1 = new Chart(
-            document.getElementById('umidade2Linha1'),
-            configUmid2Li1
-        );
-
-
-        const labelsUmid2Li2 = [
-            'Janeiro',
-            'Fevereiro',
-            'Março',
-            'Abril',
-            'Maio',
-        ];
-
-        const dataUmid2Li2 = {
-            labels: labelsUmid2Li2,
-            datasets: [{
-                label: 'Mediana Umidade por Mês',
-                backgroundColor: 'rgb(6, 151, 1)',
-                borderColor: 'rgb(6, 151, 1)',
-                data: [80, 83, 81, 85, 84],
-            }]
-        };
-
-        const configUmid2Li2 = {
-            type: 'line',
-            data: dataUmid2Li2,
-            options: {}
-        };
-        const linha2Umid2 = new Chart(
-            document.getElementById('umidade2Linha2'),
-            configUmid2Li2
-        );
-
-    }
-
-    function verificar_graficoUmid3() {
-        const labelsUmid3Li1 = [
-            '12:00',
-            '13:00',
-            '14:00',
-            '15:00',
-            '16:00',
-            '17:00',
-            '18:00',
-            '19:00',
-            '20:00',
-            '21:00',
-        ];
-
-        const dataUmid3Li1 = {
-            labels: labelsUmid3Li1,
-            datasets: [{
-                label: 'Umidade por Hora',
-                backgroundColor: 'rgb(6, 151, 1)',
-                borderColor: 'rgb(6, 151, 1)',
-                data: [84, 87, 85, 82, 84, 87, 90, 85, 81, 88],
-            }]
-        };
-
-        const configUmid3Li1 = {
-            type: 'line',
-            data: dataUmid3Li1,
-            options: {}
-        };
-        const linha3Umid1 = new Chart(
-            document.getElementById('umidade3Linha1'),
-            configUmid3Li1
-        );
-
-
-        const labelsUmid3Li2 = [
-            'Janeiro',
-            'Fevereiro',
-            'Março',
-            'Abril',
-            'Maio',
-        ];
-
-        const dataUmid3Li2 = {
-            labels: labelsUmid3Li2,
-            datasets: [{
-                label: 'Mediana Umidade por Mês',
-                backgroundColor: 'rgb(6, 151, 1)',
-                borderColor: 'rgb(6, 151, 1)',
-                data: [84, 82, 81, 85, 87],
-            }]
-        };
-
-        const configUmid3Li2 = {
-            type: 'line',
-            data: dataUmid3Li2,
-            options: {}
-        };
-        const linha3Umid2 = new Chart(
-            document.getElementById('umidade3Linha2'),
-            configUmid3Li2
-        );
-
-    }
+}
 
 </script>
