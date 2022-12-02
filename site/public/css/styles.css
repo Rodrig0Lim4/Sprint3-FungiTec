@@ -84,7 +84,6 @@ body{
 }
 
 .container_banner_texto{
-    margin-top: 8vh;
     width: 40vw;
     display: flex;
     flex-direction: column;
@@ -99,7 +98,7 @@ body{
 .container_banner_texto h2{
     margin: 8vh 0;
     font-weight: 450;
-    font-size: 7.8vh;
+    font-size: 3rem;
     font-family: sans-serif;
     text-align: center;
 }
@@ -161,7 +160,8 @@ body{
 
 }
 
-.div_conteudo_beneficio{
+.div_cont                        
+eudo_beneficio{
     background-color: rgba(255, 255, 255, 0.6);
     width: 20vw;
     height: 55vh;
@@ -265,6 +265,21 @@ body{
     margin-top: 10px;
     margin-left: 10px;
 }
+
+i#info{
+    margin-left: 7.8rem;
+    margin-right: 1rem;
+    margin-top: .8rem;
+}
+
+ a{
+    color: white;
+    text-decoration: none;
+}
+
+
+
+
 
 .div_redes_sociais img{
     width: 10vh;
